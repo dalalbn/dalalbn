@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <link rel="icon" href="../static/image/logo.png" type="image/icon type">
+
+    <title>PMT</title>
+</head>
+<body>
+
+
+
+
+  <div class="main ">
+        
+    
+    
+    
+    <div class="top">
+            <div class="logo">
+              <div class="imglogo">
+                <img style="height: 50px;width: 50px;"  src="../static/image/logo.png" alt="">
+              </div>
+              
+            </div>    
+              
+    
+            <div class="main-top-centre ">
+                   <ul>
+                   
+                            <li> <a href="./site web.html"> Home</a> </li>
+                            <li> <a href="../about us/page about as.html"> statistiques</a>    </li>
+                            <li> <a href="./page de choix(home).html">   liste des personnel </a> </li>
+               
+                            
+
+                            
+                           <li> <a href="#sam1"> PMT</a> </li>
+                           <li> <a href="../page de connection/page de conection.html"><img src="../static/image/iconuser.png" alt=""></a> </li> 
+                 </ul>  
+            </div>    
+                                
+            
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+  
+ <div class="contenu">
+          <h1> PMT</h1> <br>
+          <p>-Bienvenue sur le site de <span> Plan à Moyen Terme des départs et
+            des recrutements du personnel </span>   <br>
+       &nbsp;     Cette application offre la possibilité de créer et de modifier les PMT de manière efficace,
+       . De plus, elle permet d'archiver les anciens
+       PMT, facilitant ainsi leur accès rapide.  <br>
+       &nbsp;  L'objectif principal de cette solution était d'améliorer la
+       fluidité des processus et de fournir une plateforme conviviale pour la gestion du PMT.    </p>
+
+ </div>
+
+    
+    
+
+  <div class="listprd" >
+
+
+
+
+
+  
+      <div class="prd" >
+
+
+
+
+        <div class="prd_top">
+          
+          
+        
+         <div class="prd_top_left">
+         
+          <img class="iconprd" src="../static/image/iconstat.png" alt="">
+
+
+
+         </div>
+
+
+         <div class="prd_top_right">
+
+          <h1>Statistiques</h1>
+
+
+
+         </div>
+
+        </div>
+        <div class="prd_bottom_left">
+
+        <p> présentant des statistiques sur les mouvements </p> <br> <p> des effectifs par fonction </p><br> <p>et par
+          catégorie socioprofessionnelle (CSP)</p>
+
+
+
+        </div>
+        
+        <div class="prd_bottom_right">
+
+        <a href="">VOIR PLUS --> </a>
+
+        </div>
+      </div>
+  
+      
+  
+      <div class="prd" >
+
+
+
+
+        <div class="prd_top">
+        
+         <div class="prd_top_left">
+
+         <img  class="iconprd" src="../static/image/iconpmt.png" alt="">
+
+
+         </div>
+
+
+         <div class="prd_top_right">
+          
+          <h1>PMT</h1>
+
+          
+         </div>
+
+        </div>
+        <div class="prd_bottom_left">
+         <p>la gestion du
+          PMT comprend une liste </p><br> <p>  déroulante qui
+          répertorie les années de début et de </p> <br><p> fin pour
+          tous les PMT </p>
+
+        </div>
+        <div class="prd_bottom_right">
+
+          <a href="">VOIR PLUS --> </a>
+
+        </div>
+        
+      </div>
+
+
+
+      <div class="prd" >
+
+
+
+
+        <div class="prd_top">
+        
+         <div class="prd_top_left">
+
+        <img class="iconprd" src="../static/image/iconpers.png" alt="">
+
+
+         </div>
+
+
+         <div class="prd_top_right">
+
+          <h1>Liste du personnel</h1>
+
+
+          
+         </div>
+
+        </div>
+        
+        <div class="prd_bottom_left">
+         <p>liste des employés travaillant au sein de la </p><br><p>  Direction Centrale de
+          Sonatrach avec leurs </p> <br><p>  informations détaillées</p>
+          
+        </div>
+        <div class="prd_bottom_right">
+
+          <a href="">VOIR PLUS --> </a>
+
+        </div>
+
+      </div>
+  
+  
+   
+    </div> 
+  
+  </div>  
+  
+
+
+ <!-- <a href="#sam"><div class="scroll-down">
+</div></a>  -->
+
+<!-- 
+ <div class="les-boulle">
+   <div class="boulle-btn active"></div>
+   <div class="boulle-btn"> <a href="./page de conection.html"></a></div>
+   <div class="boulle-btn"></div>
+   <div class="boulle-btn"></div>
+   <div class="boulle-btn"></div>
+ 
+     
+</div> -->
+
+  
+</div>
+
+
+
+<script type="text/javascript">
+   const menubtn=document.querySelector(".menu-btn");
+    const topmaincentre=document.querySelector("main-top-centre");
+   menubtn.addEventListener('click',() =>{
+    menubtn.classList.toggle("active");
+    topmaincentre .classList.toggle("active");
+   });
+
+  const bnts=document.querySelectorAll(".boulle-btn");
+  var lesboules = function(manual){
+   bnts.forEach((btn) =>{
+       btn.classList.remove("active");
+   })
+   bnts[manual].classList.add("active");
+   
+  }
+
+  bnts.forEach((btn,i)=>{
+   btn.addEventListener("click",()=>{
+       lesboules(i);
+   })
+  })
+
+
+
+   
+</script>
+     
+    
+    
+</body>
+</html>
