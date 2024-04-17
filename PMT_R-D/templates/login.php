@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION["user"])) {
+if (isset($_SESSION["id"])) {
    header("Location: index.php");
 }
 ?>
@@ -19,16 +19,17 @@ if (isset($_SESSION["user"])) {
     <div class="container">
         <?php
         if (isset($_POST["login"])) {
-           $email = $_POST["email"];
+           $matr = $_POST["matr"];
            $password = $_POST["password"];
             require_once "database.php";
-            $sql = "SELECT * FROM users WHERE email = '$email'";
+            $sql = "SELECT * FROM users WHERE matr = '$matr'";
             $result = mysqli_query($conn, $sql);
             $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
             if ($user) {
-                if (password_verify($password, $user["password"])) {
+                if ($password = $user["password"]) {
                     session_start();
-                    $_SESSION["user"] = "yes";
+                    
+                    $_SESSION["id"] = $user["id"];
                     header("Location: index.php");
                     die();
                 }else{
@@ -44,7 +45,7 @@ if (isset($_SESSION["user"])) {
         <form action="login.php" method="post">
         <h1>Connexion</h1>
           <div class="input-box">
-              <input type="email" placeholder="Enter Email:" name="email" class="form-control">
+              <input type="text" placeholder="Enter Matr:" name="matr" class="form-control">
               <i class='bx bxs-user'></i> 
           </div>
           <div class="input-box">
@@ -57,7 +58,7 @@ if (isset($_SESSION["user"])) {
 
           
           
-          <div class="tf"  > <p> <b>Not registered yet</b><a href="registration.php">Register Here</a></p></div>
+          
 
           </form>
       </div> 

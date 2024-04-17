@@ -16,7 +16,6 @@ $user_id= $_SESSION['id'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>index</title>
-    
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="../static/css/style_index.css">
 </head>
@@ -70,7 +69,7 @@ $user_id= $_SESSION['id'];
                 </li>
 
                 <li>
-                    <a href="userlist.php">
+                    <a href="#">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
@@ -110,7 +109,7 @@ $user_id= $_SESSION['id'];
                              <a class="button"><ion-icon name="person"></ion-icon> <?php echo $row["full_name"]?></a>
                            </summary>
                            <ul>
-                             <li><a href="edituser.php"><ion-icon name="settings"></ion-icon><b>modifier</b> </a></li> <center><hr color="#f48220"  width="120px"></center>
+                             <li><a href="./modprofil.php"><ion-icon name="settings"></ion-icon><b>modifier</b> </a></li> <center><hr color="#f48220"  width="120px"></center>
                              <li><a href="#"><ion-icon name="help-outline"></ion-icon><b>help</b></a></li> <center><hr color="#f48220"  width="120px"></center>
                              <li><a href="./logout.php"><ion-icon name="log-in"></ion-icon><b>Logout</b></a></li> <center><hr color="#f48220"  width="120px"></center>
                              
@@ -120,53 +119,99 @@ $user_id= $_SESSION['id'];
                 </div>
             </div>
 
-            <!-- ======================= Cards ================== -->
-            <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
-                    </div>
+            <!-- ======================= modifprofil ================== -->
+            <?php
 
-                    <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-                </div>
 
-                <div class="card">
-                    <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
-                    </div>
+if(isset($_POST['update'])){
 
-                    <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
-                    </div>
-                </div>
-                 
-                <div class="card">
-                    <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments  <br> bb <br> mouna  </div>
-                    </div>
+    $full_name = $_POST['full_name'];
+    
+    $matr = $_POST['matr'];
+    
+    
+    $update_profile = $conn->prepare("UPDATE `users` SET full_name = ?, matr = ? WHERE id = ?");
+    $update_profile->execute([$full_name, $matr, $user_id]);
 
-                    <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Comments  <br> bb <br> mouna </div>
-                    </div>
+ 
+ 
+    $old_pass = $_POST['old_pass'];
+    $previous_pass = $_POST['previous_pass'];
+    $new_pass = $_POST['new_pass'];
+    $confirm_pass = $_POST['confirm_pass'];
+ 
+    if(!empty($previous_pass) || !empty($new_pass) || !empty($confirm_pass)){
+       if($previous_pass != $old_pass){
+          $message[] = 'old password not matched!';
+       }elseif($new_pass != $confirm_pass){
+          $message[] = 'confirm password not matched!';
+       }else{
+          $update_password = $conn->prepare("UPDATE `users` SET password = ? WHERE id = ?");
+          $update_password->execute([$confirm_pass, $user_id]);
+          $message[] = 'password has been updated!';
+          header("Refresh: 5; url=index.php");
+       }
+    }
+ 
+ }
+ 
+ ?>
 
-                    <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
-                    </div>
-                </div>
-                
-            </div>
+
+
+
+
+
+<?php
+   if(isset($message)){
+      foreach($message as $message){
+         echo '
+         <div class="message">
+            <span>'.$message.'</span>
+            <i class="fas fa-times" onclick="this.parentElement.remove();"></i>
+         </div>
+         ';
+      }
+   }
+?>
+
+
+
+
+<section class="update-profile-container">
+
+<?php
+      $result = mysqli_query($conn,"SELECT * FROM users WHERE id = $user_id");
+      $row = mysqli_fetch_assoc($result);
+   ?>
+
+   <form action="" method="post" enctype="multipart/form-data">
+      
+      <div class="flex">
+         <div class="inputBox">
+            <span>username : </span>
+            <input type="text" name="full_name" required class="box" placeholder="enter your name" value="<?= $row['full_name']; ?>">
+            <span>email : </span>
+            <input type="text" name="matr" required class="box" placeholder="enter your matr" value="<?= $row['matr']; ?>">
+        </div>
+         <div class="inputBox">
+            <input type="hidden" name="old_pass" value="<?= $row['password']; ?>">
+            <span>old password :</span>
+            <input type="password" class="box" name="previous_pass" placeholder="enter previous password" >
+            <span>new password :</span>
+            <input type="password" class="box" name="new_pass" placeholder="enter new password" >
+            <span>confirm password :</span>
+            <input type="password" class="box" name="confirm_pass" placeholder="confirm new password" >
+         </div>
+      </div>
+      <div class="flex-btn">
+         <input type="submit" value="update profile" name="update" class="btn">
+         <a href="index.php" class="option-btn">go back</a>
+      </div>
+   </form>
+
+</section>
+
 
             <!-- ================ Order Details List ================= -->
              </div>
@@ -182,3 +227,9 @@ $user_id= $_SESSION['id'];
 </body>
 
 </html>
+
+
+
+
+
+

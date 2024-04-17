@@ -120,55 +120,84 @@ $user_id= $_SESSION['id'];
                 </div>
             </div>
 
-            <!-- ======================= Cards ================== -->
-            <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <div class="numbers">1,504</div>
-                        <div class="cardName">Daily Views</div>
-                    </div>
+            
 
-                    <div class="iconBx">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </div>
-                </div>
+            <!-- ================ edit ================= -->
+            <?php
 
-                <div class="card">
-                    <div>
-                        <div class="numbers">80</div>
-                        <div class="cardName">Sales</div>
-                    </div>
+              
+              include 'database.php';
+              if (!isset($_SESSION["id"])) {
+                 header("Location: login.php");
+              }
 
-                    <div class="iconBx">
-                        <ion-icon name="cart-outline"></ion-icon>
-                    </div>
-                </div>
-                 
-                <div class="card">
-                    <div>
-                        <div class="numbers">284</div>
-                        <div class="cardName">Comments  <br> bb <br> mouna  </div>
-                    </div>
+              $id = $_SESSION["id"];
 
-                    <div class="iconBx">
-                        <ion-icon name="chatbubbles-outline"></ion-icon>
-                    </div>
-                </div>
-                <br>
-                <div class="card">
-                    <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Comments  <br> bb <br> mouna </div>
-                    </div>
+              if (isset($_POST["submit"])) {
+                $full_name = $_POST['full_name'];
+                $matr = $_POST['matr'];
+                $mdp = $_POST['mdp'];
+              
+                $sql = "UPDATE `users` SET `full_name`='$full_name',`matr`='$matr',`password`='$mdp' WHERE id = $id";
+              
+                $result = mysqli_query($conn, $sql);
+              
+                if ($result) {
+                  header("Location: userlist.php?msg=Data updated successfully");
+                } else {
+                  echo "Failed: " . mysqli_error($conn);
+                }
+              }
 
-                    <div class="iconBx">
-                        <ion-icon name="cash-outline"></ion-icon>
+            ?>
+             <br><br><br>
+            <div class="container-adduser">
+              <div class="text-center mb-4">
+                <h3>Edit User Information</h3>
+                <p class="text-muted"><b>Click update after changing any information</b></p>
+              </div>
+
+              <?php
+              $sql = "SELECT * FROM `users` WHERE id = $id LIMIT 1";
+              $result = mysqli_query($conn, $sql);
+              $row = mysqli_fetch_assoc($result);
+              ?>
+          
+              <div class="container-adduser-fb">
+                <form action="" method="post" ">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <label class="form-label">Full Name:</label>
+                      <input type="text" class="form-control" name="full_name" value="<?php echo $row['full_name'] ?>">
                     </div>
-                </div>
-                
+          
+                    <div class="col">
+                      <label class="form-label">Matricule :</label>
+                      <input type="text" class="form-control" name="matr" value="<?php echo $row['matr'] ?>">
+                    </div>
+                  </div>
+          
+                  <div class="mb-3">
+                    <label class="form-label">password:</label>
+                    <input type="text" class="form-control" name="mdp" value="<?php echo $row['password'] ?>">
+                  </div>
+          
+                  
+          
+                  <div>
+                    <button type="submit" class="btn btn-success" name="submit">Update</button>
+                    <a href="index.php" class="btn btn-danger">Cancel</a>
+                  </div>
+                </form>
+              </div>
             </div>
 
-            <!-- ================ Order Details List ================= -->
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
              </div>
         </div>
     </div>
@@ -182,3 +211,5 @@ $user_id= $_SESSION['id'];
 </body>
 
 </html>
+
+
